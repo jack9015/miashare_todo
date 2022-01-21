@@ -5,8 +5,8 @@ Create a to-do list Laravel application (version 7.x/8.x) with the following fun
 ## Task Explaination
 
 * User authentication and authorization
-** Two roles: user and administrator
-** Administrator has full permissions
+Two roles: user and administrator
+Administrator has full permissions
 * User can only create and delete their own to-do items
 * Users can create a to-do list
 * Users can mark to-do items as done
@@ -22,8 +22,7 @@ git clone [repo]
 cd [repo]
 ```
 
-2. Edit `.env`
-
+2. Copy `.env.example` to `.env` and make propriate changes
 * Create MySQL Database with name `todo` or change [DB_DATABASE] field in `.env`
 * Update [DB_USERNAME] and [DB_PASSWORD] according to the DB
 
@@ -35,13 +34,15 @@ php artisan migrate
 
 php artisan db:seed
 
-php arttisan serve
+php artisan key:generate
+
+php artisan serve
 ```
 
 4. Make tests with following user permissions
 
-** admin user = admin@miashare.com
-** pass = test1234
+admin user = admin@miashare.com
+pass = test1234
 
-** normal user = user@miashare.com
-** pass = test1234
+normal user = user@miashare.com
+pass = test1234
