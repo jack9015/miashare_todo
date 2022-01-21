@@ -15,7 +15,7 @@
                 <div class="p-6 mt-6 grid grid-cols-1 md:grid-cols-2 gap-10 md:grid-60 text-gray-700 uppercase">
                     <a href="{{route('tasks.index')}}">
                         <div class="bg-green-200 hover:bg-green-400 hover:text-gray-200 h-24 md:h-48 flex transition duration-500 ease-in-out transform hover:scale-110">
-                            <p class="m-auto">Tasks</p>
+                            <p class="m-auto">To-do items</p>
                         </div>
                     </a>
                     <a href="{{route('user.index')}}">

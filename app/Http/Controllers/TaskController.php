@@ -19,7 +19,7 @@ class TaskController extends Controller
         if (auth()->user()->hasRole(Role::ADMIN)) {
             $tasks = Task::all();
         } else {
-            $tasks = auth()->user()->tasks;
+            $tasks = Task::where([['user_id', '=', auth()->user()->id], ['task_status', '!=', Task::REMOVED]])->get();
         }
         return view('tasks.index', compact('tasks'));
     }
@@ -37,10 +37,11 @@ class TaskController extends Controller
         Task::create([
             'task_name' => $request->get('task_name'),
             'task_details' => $request->get('task_details'),
-            'user_id'=>auth()->user()->id
+            'user_id'=>auth()->user()->id,
+            'task_status' => Task::ACTIVE
         ]);
 
-        return redirect('/tasks')->with('msg', 'New task added successfully!');
+        return redirect('/tasks')->with('msg', 'New to-do item added successfully!');
     }
 
     public function edit(Task $task){
@@ -58,12 +59,14 @@ class TaskController extends Controller
             'task_details' => $request->get('task_details')
         ]);
 
-        return redirect('/tasks')->with('msg', 'Task updated successfully');
+        return redirect('/tasks')->with('msg', 'To-do item updated successfully');
     }
 
     public function destroy(Task $task){
-        $task->delete();
-        return redirect('/tasks')->with('deleted', 'Task deleted successfully');
+        $task->update([
+            'task_status' => Task::REMOVED
+        ]);
+        return redirect('/tasks')->with('deleted', 'To-do item deleted successfully');
     }
 
     public function show(Task $task){
@@ -76,13 +79,11 @@ class TaskController extends Controller
         
         if ((Auth::user()->hasRole(Role::ADMIN)) || ($task->user_id == Auth::user()->id)) {
             $task->checkOffTask();
-            if($task->task_status === true){
-                return redirect()->back()->with('success', 'Task Completed!');
+            if($task->task_status === Task::COMPLETED){
+                return redirect()->back()->with('success', 'To-do item Completed!');
             }else{
                 return redirect()->back();
             }
         }
     }
 }
-
-

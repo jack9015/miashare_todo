@@ -2,12 +2,12 @@
 <x-app-layout>
     <div style="width: 900px;"class="max-w-full mx-auto mt-10 px-4 py-8 text-gray-500">
         <div class="flex justify-between">
-            <h1 class="text-xl uppercase text-gray-500">Tasks</h1>
+            <h1 class="text-xl uppercase text-gray-500">To-do items</h1>
             <a href="{{route('tasks.create')}}" class="flex items-center bg-gray-200 px-2 py-1 rounded hover:bg-gray-100 border-b-4 border-gray-400">
                 <svg 
                     class="w-6 inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"              stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                 </svg>
-                <span>New Task</span>
+                <span>New To-do item</span>
             </a>
         </div>
         @include('partials.notifications')
@@ -16,10 +16,11 @@
             <div class="flex justify-between items-center py-2">
                 <form class="flex items-center gap-2" method="POST" action="{{route('mark')}}">
                     @csrf  
-                    <input class="bg-gray-400 text-green-500" type="checkbox" name="id" value="{{$task->id}}" onClick="this.form.submit()" {{$task->task_status ? 'checked' : ''}}>
-                    <h1 class="text-lg text-gray-600">{{$task->task_name}}</h1>
+                    <input class="bg-gray-400 text-green-500" type="checkbox" name="id" value="{{$task->id}}" onClick="this.form.submit()" {{$task->isCompleted() ? 'checked' : ''}}>
+                    <h1 class="text-lg text-gray-600 {{$task->isRemoved() ? 'line-through' : ''}}">{{$task->task_name}}</h1>
                     <input type="hidden" name="id" value="{{$task->id}}" />
                 </form>
+                @if (!$task->isRemoved())
                 <form action="{{route('tasks.destroy', $task->id)}}" method="POST">
                     @csrf 
                     @method('DELETE')
@@ -29,6 +30,7 @@
                         </svg>
                     </button>
                 </form>
+                @endif
             </div>
             <p>{{$task->task_details}}</p>
             <div class="mt-4 flex justify-left items-center gap-5">

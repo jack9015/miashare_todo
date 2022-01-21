@@ -1,12 +1,12 @@
 <x-app-layout>
     <div style="width: 500px;"class="max-w-full mx-auto mt-10 px-4 py-8 text-gray-500">
-        <h1 class="text-xl uppercase text-gray-500 mb-4">Task</h1>
+        <h1 class="text-xl uppercase text-gray-500 mb-4">To-do item details</h1>
         <table class="min-w-max w-full table-fixed">
             <thead>
                 <tr class="text-left bg-gray-600 text-white uppercase text-base">
-                    <th class="px-2 py-2">Task Name</td>
+                    <th class="px-2 py-2">To-do item Name</td>
                     <th class="px-2 py-2">Task Details</td>
-                </tr>
+                </tr>To-do item
             </thead>
             <tbody>
                 <tr class="bg-gray-200 hover:bg-gray-100">
