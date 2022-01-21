@@ -15,11 +15,11 @@ Administrator has full permissions
 
 ## How to Run
 
-1. Clone todo list from Github
+1. Clone source repository from GitHub
 ```
-git clone [repo]
+git clone git@github.com:jack9015/miashare_todo.git
 
-cd [repo]
+cd miashare_todo
 ```
 
 2. Copy `.env.example` to `.env` and make propriate changes
